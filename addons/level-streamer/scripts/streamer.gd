@@ -11,8 +11,12 @@ func post(task):
 
 func _stream(data):
 	while true:
-		var task = _queue.dequeue()
-		task.execute()
+		var tasks = _queue.dequeue()
+		if typeof(tasks) == TYPE_ARRAY:
+			for task in tasks:
+				task.execute()
+		elif tasks is Task:
+			tasks.execute()
 
 class Task:
 	var obj

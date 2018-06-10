@@ -30,12 +30,16 @@ func _init_shape():
 
 func _body_entered(body):
 	if body == _target:
+		var tasks = []
 		for level in _levels:
 			var task = Streamer.Task.new(level, "load_level")
-			_streamer.post(task)
+			tasks.push_back(task)
+		_streamer.post(tasks)
 
 func _body_exited(body):
 	if body == _target:
+		var tasks = []
 		for level in _levels:
 			var task = Streamer.Task.new(level, "unload_level")
-			_streamer.post(task)
+			tasks.push_back(task)
+		_streamer.post(tasks)

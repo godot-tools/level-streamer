@@ -20,9 +20,11 @@ extents = Vector2( 640, 960 )
 
 [node name="LevelStreamer" type="Node2D" parent="." index="0"]
 
+position = Vector2( 97, 5 )
 script = ExtResource( 1 )
 levels = "Levels"
 volumes = "Volumes"
+cache_resources = false
 
 [node name="Levels" type="Node2D" parent="LevelStreamer" index="0"]
 
