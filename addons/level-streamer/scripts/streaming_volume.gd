@@ -1,0 +1,41 @@
+extends Area2D
+
+const Streamer = preload("res://addons/level-streamer/scripts/streamer.gd")
+
+export(NodePath) var target
+
+onready var _target = get_node(target)
+onready var _shape
+var _levels = []
+var _streamer = Streamer.new()
+
+func get_bounds():
+	if not _shape:
+		return Rect2()
+	return Rect2(global_position, _shape.extents*2)
+
+func _ready():
+	set_process(false)
+	_init_shape()
+	_streamer.stream()
+	connect("body_entered", self, "_body_entered")
+	connect("body_exited", self, "_body_exited")
+
+func _init_shape():
+	for child in get_children():
+		if child is CollisionShape2D:
+			if child.shape is RectangleShape2D:
+				_shape = child.shape
+				break
+
+func _body_entered(body):
+	if body == _target:
+		for level in _levels:
+			var task = Streamer.Task.new(level, "load_level")
+			_streamer.post(task)
+
+func _body_exited(body):
+	if body == _target:
+		for level in _levels:
+			var task = Streamer.Task.new(level, "unload_level")
+			_streamer.post(task)
