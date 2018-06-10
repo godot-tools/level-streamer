@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/level-streamer/scripts/level_streamer.gd" type="Script" id=1]
 [ext_resource path="res://lerwick_small_inh.tscn" type="PackedScene" id=2]
@@ -11,11 +11,6 @@
 custom_solver_bias = 0.0
 extents = Vector2( 1280, 480 )
 
-[sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
-extents = Vector2( 640, 960 )
-
 [node name="Node2D" type="Node2D" index="0"]
 
 [node name="LevelStreamer" type="Node2D" parent="." index="0"]
@@ -24,7 +19,7 @@ position = Vector2( 97, 5 )
 script = ExtResource( 1 )
 levels = "Levels"
 volumes = "Volumes"
-cache_resources = false
+cache_resources = true
 
 [node name="Levels" type="Node2D" parent="LevelStreamer" index="0"]
 
@@ -62,24 +57,6 @@ target = NodePath("../../../Node2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStreamer/Volumes/StreamingVolume" index="0"]
 
 shape = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="StreamingVolume2" type="Area2D" parent="LevelStreamer/Volumes" index="1"]
-
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-script = ExtResource( 4 )
-target = NodePath("../../../Node2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStreamer/Volumes/StreamingVolume2" index="0"]
-
-position = Vector2( 640, 960 )
-shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Node2D" parent="." index="1" instance=ExtResource( 5 )]

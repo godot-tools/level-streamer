@@ -6,17 +6,17 @@ var count = 0
 
 var _cache_resource
 var _levels_root
-var _resource
+var _resource_registry
 var _instance
 var _mu = Mutex.new()
 
-func _init(filename, transform, bounds, levels_root, _resource=null):
+func _init(filename, transform, bounds, levels_root, _cache_resources, _resource_registry):
 	self.filename = filename
 	self.transform = transform
 	self.bounds = bounds
 	self._levels_root = levels_root
-	self._cache_resource = _resource != null
-	self._resource = _resource
+	self._cache_resource = _cache_resources
+	self._resource_registry = _resource_registry
 
 func add_ref(d):
 	_mu.lock()
@@ -33,9 +33,8 @@ func load_level():
 	_mu.lock()
 	if count == 0:
 		print(count)
-		if not _resource:
-			_resource = load(filename)
-		_instance = _resource.instance()
+		var resource = load(filename)
+		_instance = resource.instance()
 		_instance.transform = transform
 		_levels_root.add_child(_instance)
 	ref()
@@ -49,7 +48,7 @@ func unload_level():
 		_instance.queue_free()
 		_instance = null
 		if not _cache_resource:
-			_resource = null
+			_resource_registry.unload_resource(filename)
 	deref()
 	_mu.unlock()
 
