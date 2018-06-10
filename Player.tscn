@@ -1,16 +1,16 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Node2D.gd" type="Script" id=1]
-[ext_resource path="res://BoundedCamera.cs" type="Script" id=2]
+[ext_resource path="res://BoundedCamera.gd" type="Script" id=2]
 [ext_resource path="res://addons/icon.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 _sections_unfolded = [ "Resource" ]
 
-[node name="Node2D" type="KinematicBody2D"]
+[node name="Node2D" type="KinematicBody2D" index="0"]
 
 position = Vector2( 318.004, 251.056 )
 z_index = 1
@@ -48,11 +48,11 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 script = ExtResource( 2 )
-WorldSize = Vector2( 6400, 3200 )
+world_size = Vector2( 6400, 3200 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="." index="2"]
 

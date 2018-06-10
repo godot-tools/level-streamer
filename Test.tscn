@@ -16,13 +16,15 @@ extents = Vector2( 1280, 480 )
 custom_solver_bias = 0.0
 extents = Vector2( 640, 960 )
 
-[node name="Node2D" type="Node2D" index="0"]
+[node name="Node2D" type="Node2D"]
 
 [node name="LevelStreamer" type="Node2D" parent="." index="0"]
 
+position = Vector2( 97, 5 )
 script = ExtResource( 1 )
 levels = "Levels"
 volumes = "Volumes"
+cache_resources = false
 
 [node name="Levels" type="Node2D" parent="LevelStreamer" index="0"]
 
@@ -60,10 +62,10 @@ target = NodePath("../../../Node2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStreamer/Volumes/StreamingVolume" index="0"]
 
 shape = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="StreamingVolume2" type="Area2D" parent="LevelStreamer/Volumes" index="1"]
 
+position = Vector2( 640, 960 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -72,13 +74,12 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
 target = NodePath("../../../Node2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStreamer/Volumes/StreamingVolume2" index="0"]
 
-position = Vector2( 640, 960 )
 shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Node2D" parent="." index="1" instance=ExtResource( 5 )]
 

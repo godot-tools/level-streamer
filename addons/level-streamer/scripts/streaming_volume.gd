@@ -12,7 +12,7 @@ var _streamer = Streamer.new()
 func get_bounds():
 	if not _shape:
 		return Rect2()
-	return Rect2(global_position, _shape.extents*2)
+	return Rect2(position, _shape.extents*2)
 
 func _ready():
 	set_process(false)
@@ -30,12 +30,16 @@ func _init_shape():
 
 func _body_entered(body):
 	if body == _target:
+		var tasks = []
 		for level in _levels:
 			var task = Streamer.Task.new(level, "load_level")
-			_streamer.post(task)
+			tasks.push_back(task)
+		_streamer.post(tasks)
 
 func _body_exited(body):
 	if body == _target:
+		var tasks = []
 		for level in _levels:
 			var task = Streamer.Task.new(level, "unload_level")
-			_streamer.post(task)
+			tasks.push_back(task)
+		_streamer.post(tasks)
