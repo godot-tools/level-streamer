@@ -1,4 +1,6 @@
 
+const Task = preload("res://addons/level-streamer/scripts/streamer.gd").Task
+
 var filename
 var bounds
 var transform
@@ -29,28 +31,37 @@ func ref():
 func deref():
 	add_ref(-1)
 
-func load_level():
+func load_level(main_thread):
 	_mu.lock()
 	if count == 0:
-		print(count)
 		if not _resource:
 			_resource = load(filename)
-		_instance = _resource.instance()
-		_instance.transform = transform
-		_levels_root.add_child(_instance)
+			main_thread.push_back(Task.new(self, "_instance"))
 	ref()
 	_mu.unlock()
 
-func unload_level():
+func unload_level(main_thread):
 	_mu.lock()
-	print(count)
 	if count == 1:
-		_levels_root.call_deferred("remove_child", _instance)
-		_instance.queue_free()
-		_instance = null
-		if not _cache_resource:
-			_resource = null
+		main_thread.push_back(Task.new(self, "_uninstance"))
 	deref()
+	_mu.unlock()
+
+func _instance():
+	_mu.lock()
+	if _resource:
+		_instance = _resource.instance()
+		_instance.transform = transform
+		_levels_root.add_child(_instance)
+	_mu.unlock()
+
+func _uninstance():
+	_mu.lock()
+	_levels_root.call_deferred("remove_child", _instance)
+	_instance.queue_free()
+	_instance = null
+	if not _cache_resource:
+		_resource = null
 	_mu.unlock()
 
 func _is_loaded():

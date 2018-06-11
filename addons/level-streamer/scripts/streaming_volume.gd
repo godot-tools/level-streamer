@@ -15,11 +15,13 @@ func get_bounds():
 	return Rect2(position, _shape.extents*2)
 
 func _ready():
-	set_process(false)
 	_init_shape()
 	_streamer.stream()
 	connect("body_entered", self, "_body_entered")
 	connect("body_exited", self, "_body_exited")
+
+func _process(delta):
+	_streamer._tick()
 
 func _init_shape():
 	for child in get_children():

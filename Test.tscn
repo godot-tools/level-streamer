@@ -16,7 +16,7 @@ extents = Vector2( 1280, 480 )
 custom_solver_bias = 0.0
 extents = Vector2( 640, 960 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" index="0"]
 
 [node name="LevelStreamer" type="Node2D" parent="." index="0"]
 

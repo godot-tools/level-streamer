@@ -15,7 +15,6 @@ var _resource_cache = {}
 var _levels = []
 
 func _ready():
-	print("streamer")
 	_init_levels()
 	_init_volumes()
 
@@ -30,11 +29,8 @@ func _init_levels():
 			_levels.push_back(Level.new(child.filename, child.transform, bounds, _level_root, resource))
 			_level_root.remove_child(child)
 			child.queue_free()
-	for file in _resource_cache:
-		print(str(file, ": ", _resource_cache[file])) 
 
 func _init_volumes():
-	
 	for volume in _volume_root.get_children():
 		if volume is StreamingVolume:
 			for level in _levels:
