@@ -2,10 +2,8 @@ extends Area2D
 
 const Streamer = preload("res://addons/level-streamer/scripts/streamer.gd")
 
-export(NodePath) var target
-
-onready var _target = get_node(target)
-onready var _shape
+var _target
+var _shape
 var _levels = []
 var _streamer = Streamer.new()
 

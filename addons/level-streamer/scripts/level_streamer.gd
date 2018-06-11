@@ -3,10 +3,12 @@ extends Node2D
 const StreamingVolume = preload("res://addons/level-streamer/scripts/streaming_volume.gd")
 const Level = preload("res://addons/level-streamer/scripts/level.gd")
 
+export(NodePath) var target
 export(NodePath) var levels = "Levels"
 export(NodePath) var volumes = "Volumes"
 export var cache_resources = false
 
+onready var _target = get_node(target)
 onready var _level_root = get_node(levels)
 onready var _volume_root = get_node(volumes)
 
@@ -33,6 +35,7 @@ func _init_levels():
 func _init_volumes():
 	for volume in _volume_root.get_children():
 		if volume is StreamingVolume:
+			volume._target = _target
 			for level in _levels:
 				if level.bounds.intersects(volume.get_bounds()):
 					volume._levels.push_back(level)

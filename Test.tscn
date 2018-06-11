@@ -22,6 +22,7 @@ extents = Vector2( 640, 960 )
 
 position = Vector2( 97, 5 )
 script = ExtResource( 1 )
+target = NodePath("../Node2D")
 levels = "Levels"
 volumes = "Volumes"
 cache_resources = false
@@ -57,7 +58,6 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
-target = NodePath("../../../Node2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStreamer/Volumes/StreamingVolume" index="0"]
 
@@ -75,7 +75,6 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 4 )
 _sections_unfolded = [ "Transform" ]
-target = NodePath("../../../Node2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelStreamer/Volumes/StreamingVolume2" index="0"]
 
